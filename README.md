@@ -6,4 +6,5 @@ O projeto tem como objetivo também ser gerenciado com Maven, versionado no GitH
 Essa proposta é da disciplina de Linguagem de Programação Orientada a Objetos, do 4º semestre do curso de Ciência da Computação do Instituto Federal de Educação, Ciência e Tecnologia Sul-rio-grandense (IFSul), ministrada pela professora Dra. Vanessa Vanessa Lago Machado.
 
 Diagrama UML do Estacione: 
-![image](https://github.com/emiliaferlin/ProjetoLPOOE1_Emilia/assets/71708816/a1836f4f-ee2d-4f19-9177-5b8c2d352431)
+![image](https://github.com/user-attachments/assets/d10e33cf-2e35-4853-aa25-f5683fd1832f)
+
