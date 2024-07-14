@@ -1,6 +1,5 @@
-# ProjetoLPOOE1_Emilia
 
-# Descrição Estacione 
+# Descrição ProjetoLPOOE1_Emilia
 Este é um projeto sobre um estacionamento, chamado Estacione, desenvolvido em Java. Utiliza JPA para gerenciar o acesso a um banco de dados PostgreSQL.
 
 O projeto tem como objetivo também ser gerenciado com Maven, versionado no GitHub e conter pelo menos três classes relacionadas com mapeamento de relacionamento.
