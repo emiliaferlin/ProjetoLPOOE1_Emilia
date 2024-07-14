@@ -4,23 +4,59 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Mili
  */
-public class Ticket {
-
+@Entity
+@Table(name = "tb_ticket")
+public class Ticket implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
+    
+    @Column(name = "numero_ticket", nullable = false, length = 10)
     private int numero;
+    
+    @OneToOne
+    @JoinColumn(name = "carro_id")
     private Carro carro;
+    
+    @Column(name = "hora_entrada", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar horaEntrada;
+    
+    //A data de saída não tem como ser obrigatória, porque não tem como saber que horas o carro sai
+    //só sabemos de fato quando a vaga é desocupada
+    @Column(name = "hora_saida")
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar horaSaida;
 
     public Ticket() {
     }
-    
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public int getNumero() {
         return numero;
     }

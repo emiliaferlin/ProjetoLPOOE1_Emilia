@@ -4,18 +4,64 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.model;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author Mili
  */
-public class Vaga {
+@Entity
+@Table(name = "tb_vaga")
+public class Vaga implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
+    
+    @Column(name = "numero_vaga", nullable = false, length = 10)
     private int numero;
+    
+    @Column(name = "vaga_disponivel", nullable = false)
     private boolean disponivel;
+    
+    @ManyToOne
+    @JoinColumn(name = "estacionamento_id")
+    private Estacionamento estacionamento;
+
+    @OneToOne
+    @JoinColumn(name = "carro_id")
     private Carro carro;
 
     public Vaga() {
     }
+
+    public Estacionamento getEstacionamento() {
+        return estacionamento;
+    }
+
+    public void setEstacionamento(Estacionamento estacionamento) {
+        this.estacionamento = estacionamento;
+    }
+    
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     
 
     public int getNumero() {
