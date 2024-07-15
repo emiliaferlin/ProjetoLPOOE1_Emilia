@@ -1,1 +1,11 @@
+br\edu\ifsul\cc\lpoo\estacione\dao\InterfacePersistencia.class
+br\edu\ifsul\cc\lpoo\estacione\dao\PersistenciaJPA.class
 br\edu\ifsul\cc\lpoo\estacione\Estacione.class
+br\edu\ifsul\cc\lpoo\estacione\model\Ticket.class
+br\edu\ifsul\cc\lpoo\estacione\model\Vaga.class
+br\edu\ifsul\cc\lpoo\estacione\model\Estacionamento.class
+br\edu\ifsul\cc\lpoo\estacione\model\Estacionamento_.class
+br\edu\ifsul\cc\lpoo\estacione\model\Ticket_.class
+br\edu\ifsul\cc\lpoo\estacione\model\Carro.class
+br\edu\ifsul\cc\lpoo\estacione\model\Vaga_.class
+br\edu\ifsul\cc\lpoo\estacione\model\Carro_.class

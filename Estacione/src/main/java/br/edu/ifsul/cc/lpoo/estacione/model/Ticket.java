@@ -32,6 +32,9 @@ public class Ticket implements Serializable{
     @Column(name = "numero_ticket", nullable = false, length = 10)
     private int numero;
     
+    @Column(name = "valor_total", columnDefinition = "decimal(12,2)")
+    private float valorTotal;
+    
     @OneToOne
     @JoinColumn(name = "carro_id")
     private Carro carro;
@@ -64,6 +67,15 @@ public class Ticket implements Serializable{
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+    
 
     public Carro getCarro() {
         return carro;

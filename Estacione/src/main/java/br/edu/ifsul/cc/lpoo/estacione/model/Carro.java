@@ -5,8 +5,10 @@
 package br.edu.ifsul.cc.lpoo.estacione.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,7 @@ public class Carro implements Serializable{
     @JoinColumn(name = "estacionamento_id")
     private Estacionamento estacionamento;
 
-    @OneToOne(mappedBy = "carro")
+    @OneToOne(mappedBy = "carro", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Ticket ticket;
 
     public Carro() {
