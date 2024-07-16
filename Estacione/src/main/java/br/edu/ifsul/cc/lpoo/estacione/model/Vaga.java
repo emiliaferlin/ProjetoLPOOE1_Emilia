@@ -43,26 +43,6 @@ public class Vaga implements Serializable{
 
     public Vaga() {
     }
-    
-    public void ocuparVaga(Carro carro) {
-        if (this.disponivel == false) {
-            this.carro = carro;
-            this.disponivel = false;
-            System.out.println("Vaga ocupada com sucesso.");
-        } else {
-            System.out.println("A vaga já está ocupada.");
-        }
-    }
-    
-    public void desocupar() {
-        if (this.disponivel == false) {
-            this.carro = null;
-            this.disponivel = true;
-            System.out.println("Vaga desocupada com sucesso.");
-        } else {
-            System.out.println("A vaga já está desocupada.");
-        }
-    }
 
     public Estacionamento getEstacionamento() {
         return estacionamento;

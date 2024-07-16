@@ -45,7 +45,6 @@ public class Estacionamento implements Serializable{
     public boolean ocuparVaga(Carro carro) {
         for (Vaga vaga : vagas) {
             if (vaga.isDisponivel()) {
-                vaga.ocuparVaga(carro);
                 carrosEstacionados.add(carro);
                 return true;
             }
@@ -58,7 +57,6 @@ public class Estacionamento implements Serializable{
         for (Vaga vaga : vagas) {
             if (vaga.getNumero() == numeroVaga && !vaga.isDisponivel()) {
                 Carro carro = vaga.getCarro();
-                vaga.desocupar();
                 carrosEstacionados.remove(carro);
                 return true;
             }
