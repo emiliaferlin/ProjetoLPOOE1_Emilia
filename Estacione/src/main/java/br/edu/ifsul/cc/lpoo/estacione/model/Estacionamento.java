@@ -6,6 +6,7 @@ package br.edu.ifsul.cc.lpoo.estacione.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,38 +42,15 @@ public class Estacionamento implements Serializable{
 
     public Estacionamento() {
     }
-    
-    public boolean ocuparVaga(Carro carro) {
-        for (Vaga vaga : vagas) {
+
+    public int encontrarVagaDisponivel(Collection<Vaga> lista) {
+        for (Vaga vaga : lista) {
             if (vaga.isDisponivel()) {
-                carrosEstacionados.add(carro);
-                return true;
+                return vaga.getNumero();
             }
         }
         System.out.println("Não há vagas disponíveis.");
-        return false;
-    }
-
-    public boolean desocuparVaga(int numeroVaga) {
-        for (Vaga vaga : vagas) {
-            if (vaga.getNumero() == numeroVaga && !vaga.isDisponivel()) {
-                Carro carro = vaga.getCarro();
-                carrosEstacionados.remove(carro);
-                return true;
-            }
-        }
-        System.out.println("Vaga não encontrada ou já está desocupada.");
-        return false;
-    }
-
-    public Vaga encontrarVagaDisponivel() {
-        for (Vaga vaga : vagas) {
-            if (vaga.isDisponivel()) {
-                return vaga;
-            }
-        }
-        System.out.println("Não há vagas disponíveis.");
-        return null;
+        return 0;
     }
 
     public Integer getId() {

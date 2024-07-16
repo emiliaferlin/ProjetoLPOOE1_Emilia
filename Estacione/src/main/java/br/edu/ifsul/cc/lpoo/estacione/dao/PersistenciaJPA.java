@@ -4,6 +4,8 @@
  */
 package br.edu.ifsul.cc.lpoo.estacione.dao;
 
+import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -53,6 +55,10 @@ public class PersistenciaJPA implements InterfacePersistencia{
         entity.getTransaction().begin();// abrir a transacao.
         entity.remove(o); //realiza o delete
         entity.getTransaction().commit(); //comita a transacao (comando sql)                
+    }
+    
+    public Collection<Vaga> listaVagas() throws Exception {
+        return entity.createNamedQuery("Vaga.orderbyid").getResultList();
     }
     
 }

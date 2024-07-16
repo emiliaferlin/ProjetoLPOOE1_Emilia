@@ -10,6 +10,7 @@ import br.edu.ifsul.cc.lpoo.estacione.model.Estacionamento;
 import br.edu.ifsul.cc.lpoo.estacione.model.Ticket;
 import br.edu.ifsul.cc.lpoo.estacione.model.Vaga;
 import java.util.Calendar;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,10 +61,21 @@ public class TestePersistenciaJPA {
         
         // Horas
         Calendar calendarInicio = Calendar.getInstance();
-        Calendar calendarFinal = Calendar.getInstance();
-        int horaInicio = calendarInicio.get(Calendar.HOUR_OF_DAY);
-        calendarFinal.add(Calendar.HOUR, 2);
-        int horaFinal = calendarFinal.get(Calendar.HOUR_OF_DAY);
+        Calendar calendarFinalFiesta = Calendar.getInstance();
+        Calendar calendarFinalUno = Calendar.getInstance();
+        Calendar calendarFinalFusca = Calendar.getInstance();
+        //Hora Fiesta
+        int horaInicioFiesta = calendarInicio.get(Calendar.HOUR_OF_DAY);
+        calendarFinalFiesta.add(Calendar.HOUR, 2);
+        int horaFinalFiesta = calendarFinalFiesta.get(Calendar.HOUR_OF_DAY);
+        //Hora Uno
+        int horaInicioUno = calendarInicio.get(Calendar.HOUR_OF_DAY);
+        calendarFinalUno.add(Calendar.HOUR, 4);
+        int horaFinalUno = calendarFinalUno.get(Calendar.HOUR_OF_DAY);
+        //Hora Fusca
+        int horaInicioFusca = calendarInicio.get(Calendar.HOUR_OF_DAY);
+        calendarFinalFusca.add(Calendar.HOUR, 3);
+        int horaFinalFusca = calendarFinalFusca.get(Calendar.HOUR_OF_DAY);
         
         // set Estacionamento
         estacione.setNome("Estacione Bem");
@@ -86,27 +98,26 @@ public class TestePersistenciaJPA {
         fusca.setCor("Amarelo");
         fusca.setEstacionamento(estacione);
         
-
         // set Ticket
         //Ticket1
         ticket1.setNumero(100);
-        ticket1.setHoraEntrada(horaInicio);
-        ticket1.setHoraSaida(horaFinal);
+        ticket1.setHoraEntrada(horaInicioFiesta);
+        ticket1.setHoraSaida(horaFinalFiesta);
         ticket1.setValorHora(3.50);
         ticket1.setValorTotal(ticket1.calcularValorTotalTicket());
         ticket1.setCarro(fiesta);
         //Ticket2
         ticket2.setNumero(200);
-        ticket2.setHoraEntrada(horaInicio);
-        ticket2.setHoraSaida(horaFinal);
-        ticket2.setValorHora(4.00);
+        ticket2.setHoraEntrada(horaInicioUno);
+        ticket2.setHoraSaida(horaFinalUno);
+        ticket2.setValorHora(3.50);
         ticket2.setValorTotal(ticket2.calcularValorTotalTicket());
         ticket2.setCarro(uno);
         //Ticket3
         ticket3.setNumero(300);
-        ticket3.setHoraEntrada(horaInicio);
-        ticket3.setHoraSaida(horaFinal);
-        ticket3.setValorHora(3.25);
+        ticket3.setHoraEntrada(horaInicioFusca);
+        ticket3.setHoraSaida(horaFinalFusca);
+        ticket3.setValorHora(3.50);
         ticket3.setValorTotal(ticket3.calcularValorTotalTicket());
         ticket3.setCarro(fusca);
         
@@ -131,7 +142,6 @@ public class TestePersistenciaJPA {
         quartaVaga.setDisponivel(true);
         quartaVaga.setEstacionamento(estacione);
         
-        
         // Persistência
         jpa.persist(estacione);
         jpa.persist(fiesta);
@@ -144,8 +154,24 @@ public class TestePersistenciaJPA {
         jpa.persist(ticket1);
         jpa.persist(ticket2);
         jpa.persist(ticket3);
+        
+        if(jpa.conexaoAberta()){
+            Collection<Vaga> lista = jpa.listaVagas();
+  
+            for(Vaga vaga : lista){
+                System.out.println("Número da vaga: " + vaga.getNumero());
+                System.out.println("Vaga disponível: " + vaga.isDisponivel());
+            }
+            
+            System.out.println("Qual é a primeira vaga disponível: " + estacione.encontrarVagaDisponivel(lista));
+            jpa.fecharConexao();
+        }                                
+        else{
+            System.out.println("nao conectou no BD ...");
+                        
+        }
+        
        
-
         // buscar objeto persistido
         //Estacionamento persistidoModalidade = (Estacionamento) jpa.find(Estacionamento.class, estacione.getId());//ver se tem necessidade de fazer o mesmo pro m2 e m3
 
@@ -153,5 +179,6 @@ public class TestePersistenciaJPA {
         //Assert.assertEquals(estacione.getNome(), persistidoModalidade.getNome());
 
     }
+    
     
 }
