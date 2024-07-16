@@ -5,7 +5,6 @@
 package br.edu.ifsul.cc.lpoo.estacione.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -32,24 +29,31 @@ public class Ticket implements Serializable{
     @Column(name = "numero_ticket", nullable = false, length = 10)
     private int numero;
     
+    @Column(name = "valor_hora", columnDefinition = "decimal(12,2)")
+    private double valorHora;
+    
     @Column(name = "valor_total", columnDefinition = "decimal(12,2)")
-    private float valorTotal;
+    private double valorTotal;
     
     @OneToOne
     @JoinColumn(name = "carro_id")
     private Carro carro;
     
     @Column(name = "hora_entrada", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar horaEntrada;
+    private int horaEntrada;
     
-    //A data de saída não tem como ser obrigatória, porque não tem como saber que horas o carro sai
-    //só sabemos de fato quando a vaga é desocupada
-    @Column(name = "hora_saida")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar horaSaida;
+
+    @Column(name = "hora_saida", nullable = false)
+    private int horaSaida;
 
     public Ticket() {
+    }
+    
+    
+    public double calcularValorTotalTicket() {
+        int horas = this.horaSaida - this.horaEntrada;
+        double valorTot = horas * this.valorHora;
+        return valorTot;
     }
 
     public Integer getId() {
@@ -59,7 +63,15 @@ public class Ticket implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
+    public double getValorHora() {
+        return valorHora;
+    }
+
+    public void setValorHora(double valorHora) {
+        this.valorHora = valorHora;
+    }
+
     public int getNumero() {
         return numero;
     }
@@ -68,11 +80,11 @@ public class Ticket implements Serializable{
         this.numero = numero;
     }
 
-    public float getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(float valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
     
@@ -85,19 +97,19 @@ public class Ticket implements Serializable{
         this.carro = carro;
     }
 
-    public Calendar getHoraEntrada() {
+    public int getHoraEntrada() {
         return horaEntrada;
     }
 
-    public void setHoraEntrada(Calendar horaEntrada) {
+    public void setHoraEntrada(int horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
 
-    public Calendar getHoraSaida() {
+    public int getHoraSaida() {
         return horaSaida;
     }
 
-    public void setHoraSaida(Calendar horaSaida) {
+    public void setHoraSaida(int horaSaida) {
         this.horaSaida = horaSaida;
     }
     

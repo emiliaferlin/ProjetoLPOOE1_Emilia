@@ -6,10 +6,9 @@ package br.edu.ifsul.cc.lpoo.estacione.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,12 +34,47 @@ public class Estacionamento implements Serializable{
     private int capacidade;
     
     @OneToMany(mappedBy = "estacionamento")
-    private ArrayList<Vaga> vagas;
+    private List<Vaga> vagas = new ArrayList();
      
     @OneToMany(mappedBy = "estacionamento")
-    private ArrayList<Carro> carrosEstacionados;
+    private List<Carro> carrosEstacionados = new ArrayList();
 
     public Estacionamento() {
+    }
+    
+    public boolean ocuparVaga(Carro carro) {
+        for (Vaga vaga : vagas) {
+            if (vaga.isDisponivel()) {
+                vaga.ocuparVaga(carro);
+                carrosEstacionados.add(carro);
+                return true;
+            }
+        }
+        System.out.println("Não há vagas disponíveis.");
+        return false;
+    }
+
+    public boolean desocuparVaga(int numeroVaga) {
+        for (Vaga vaga : vagas) {
+            if (vaga.getNumero() == numeroVaga && !vaga.isDisponivel()) {
+                Carro carro = vaga.getCarro();
+                vaga.desocupar();
+                carrosEstacionados.remove(carro);
+                return true;
+            }
+        }
+        System.out.println("Vaga não encontrada ou já está desocupada.");
+        return false;
+    }
+
+    public Vaga encontrarVagaDisponivel() {
+        for (Vaga vaga : vagas) {
+            if (vaga.isDisponivel()) {
+                return vaga;
+            }
+        }
+        System.out.println("Não há vagas disponíveis.");
+        return null;
     }
 
     public Integer getId() {
@@ -68,19 +102,19 @@ public class Estacionamento implements Serializable{
         this.capacidade = capacidade;
     }
 
-    public ArrayList<Vaga> getVagas() {
+    public List<Vaga> getVagas() {
         return vagas;
     }
 
-    public void setVagas(ArrayList<Vaga> vagas) {
+    public void setVagas(List<Vaga> vagas) {
         this.vagas = vagas;
     }
 
-    public ArrayList<Carro> getCarrosEstacionados() {
+    public List<Carro> getCarrosEstacionados() {
         return carrosEstacionados;
     }
 
-    public void setCarrosEstacionados(ArrayList<Carro> carrosEstacionados) {
+    public void setCarrosEstacionados(List<Carro> carrosEstacionados) {
         this.carrosEstacionados = carrosEstacionados;
     }
     

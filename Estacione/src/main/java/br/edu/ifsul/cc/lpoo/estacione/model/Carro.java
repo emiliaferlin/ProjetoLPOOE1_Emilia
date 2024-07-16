@@ -65,8 +65,6 @@ public class Carro implements Serializable{
         this.ticket = ticket;
     }
     
-    
-
     public Integer getId() {
         return id;
     }
