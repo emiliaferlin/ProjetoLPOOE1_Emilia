@@ -78,7 +78,7 @@ public class TestePersistenciaJPA {
         int horaFinalFusca = calendarFinalFusca.get(Calendar.HOUR_OF_DAY);
         
         // set Estacionamento
-        estacione.setNome("Estacione Bem");
+        estacione.setNome("Estacione");
         estacione.setCapacidade(10);
         
         // set Carro
